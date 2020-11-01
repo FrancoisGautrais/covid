@@ -198,3 +198,5 @@ class IncidenceDepLoader(SQLoader):
             #log.d("Dep Update %s %s %s (%d) (%d<%d)" % (row[0], str_date(dt), row[3], int(float(4)), ret[0], self.date))
             return True
         return False
+
+
