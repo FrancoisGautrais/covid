@@ -1,0 +1,100 @@
+
+<div class="card darken-1 modal" id="op-add-cat-to">
+    <div class="card-content">
+        <center><h2>Ajouter une catégorie à l'opération</h2></center>
+    </div>
+    <div class="card-action">
+        <ul id="op-add-cat-to-root" class="collection with-header"></ul>
+        <div class="row">
+            <a class="btn fond-color-1 color-4 col offset-s3 s6" onclick="CategoryManager.close()">Fermer</a>
+        </div>
+    </div>
+</div>
+
+
+<div class="card darken-1 modal" id="op-add-category">
+    <div class="card-content">
+        <center><h2><span id="op-add-cat-title"></span> une catégorie</h2></center>
+    </div>
+    <div class="card-action">
+        <div class="row">
+            <div class="input-field col s12 hidden">
+                  <input placeholder="Nom" id="op-add-cat-id" type="text" class="validate">
+                  <label for="op-add-cat-id">id</label>
+            </div>
+
+            <div class="input-field col s12">
+                  <input placeholder="Nom" id="op-add-cat-nom" type="text" class="validate">
+                  <label for="op-add-cat-nom">Nom</label>
+            </div>
+
+            <div class="input-field col s12">
+                  <input placeholder="Nom" id="op-add-cat-description" type="text" class="validate">
+                  <label for="op-add-cat-description">Description</label>
+            </div>
+        </div>
+        <h3>Patterns</h3>
+        <div class="row">
+            <ul class="collection with-header" id="op-add-cat-pattern-root">
+
+            </ul>
+        </div>
+
+        <div class="row">
+            <a class="btn fond-color-2 color-4 col" onclick="CategoryEditor.onAddPatterClicked()"><i class="material-icons">add</i></a>
+        </div>
+
+        <div class="row">
+            <a class="btn fond-color-2 color-1 col offset-s1 s4" onclick="CategoryEditor.close()">Fermer</a>
+            <a class="btn fond-color-2 color-4 col offset-s2 s4" id="op-add-cat-add" onclick="CategoryEditor.valid()">r</a>
+        </div>
+    </div>
+</div>
+
+
+<div class="card darken-1 modal" id="op-patterns">
+    <div class="card-content">
+        <center class="row"><h2 class="col s6"><span id="op-pattern-title"></span> un pattern à </h2><#col(select("op-patterns-cat-list", "", objl()), "col s6")></center>
+
+    </div>
+    <div class="card-action" id="op-patterns-root">
+
+        <div class="row">
+            <#col(input_text("opw-patterns-it-libelle", "", "text", "Libellé", 0, "libelle"), "col s12")>
+        </div>
+        <div class="row">
+            <#col(input_text("opw-patterns-it-mandat", "", "text", "Mandat", 0, "mandat"), "col s4")>
+            <#col(input_text("opw-patterns-it-creancier", "", "text", "Créancier", 0, "creancier"), "col s4")>
+            <#col(multiple_select("opw-patterns-s-typeOperation", "", objl("RETRAIT AU DISTRIBUTEUR", "Retrait", "VIREMENT EMIS", "Virement émis", "PAIEMENT PAR CARTE", "Paiement par carte", "VIREMENT EN VOTRE FAVEUR", "Virement reçu", "PRELEVEMENT", "Prélèvement", "COTISATION", "Cotisation", "CHEQUE EMIS", "Chèque émis", "AVOIR",  "Avoir", "REMISE DE CHEQUE", "Chèque reçu", "FRAIS", "Frais"), "typeOperation", "DSSDSD"), "col s4")>
+        </div>
+        <div class="row">
+            <#col(input_text("opw-patterns-itn-montant-min", "", "number", "Montant min", 0, "montant-min"), "col s4")>
+            <#col(input_text("opw-patterns-itn-montant-max", "", "number", "Montant max", 0, "montant-max"), "col s4")>
+            <#col(select("opw-patterns-s-montant-type", "", objl("", "Les deux", "credit", "Crédit (+)", "debit", "Débit (-)"), "montant-type"), "col s4")>
+        </div>
+
+
+        <div class="row">
+            <a class="btn fond-color-1 color-4 col s4" onclick="PatternEditor.close()">Annuler</a>
+            <a class="btn fond-color-3 color-4 col s4" onclick="PatternEditor.test()">Tester</a>
+            <a class="btn fond-color-2 color-4 col s4" onclick="PatternEditor.valid()" id="op-pattern-add">Ajouter</a>
+        </div>
+        <ul class="collapsible" data-collapsible="accordion">
+            <li>
+              <div class="collapsible-header" id="op-patterns-test-length">First</div>
+              <div class="collapsible-body"><span>
+                  <table class="striped">
+                        <thead>  <tr><th>Libellé</th><th>Date</th><th>Montant</th></tr> </thead>
+                        <tbody id="op-pattern-test-results">
+
+                        </tbody>
+                    </table>
+              </span></div>
+            </li>
+        </ul>
+
+
+    </div>
+</div>
+
+

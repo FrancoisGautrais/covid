@@ -1,0 +1,46 @@
+
+
+<div class="card darken-1 modal" id="classe-manager">
+    <div class="card-content">
+        <center><h2>Classes</h2></center>
+    </div>
+    <div class="card-action">
+        <table>
+            <thead>
+                <tr>
+                    <th>Méta</th>
+                    <th>Catégories</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="classe-table-root">
+            </tbody>
+        </table>
+        <a class="btn color-2" onclick="ClasseEditor.open()"><i class="material-icons">add</i></a>
+    </div>
+</div>
+
+<div class="card darken-1 modal" id="classe-add">
+    <div class="card-content">
+        <center><h2><span id="classe-add-title"></span> une catégorie</h2></center>
+    </div>
+    <div class="card-action">
+        <div class="row">
+            <div class="input-field col s12 hidden">
+                  <input placeholder="Nom" id="classe-add-id" type="text" class="validate">
+                  <label for="classe-add-id">id</label>
+            </div>
+
+            <div class="input-field col s12">
+                  <input placeholder="Nom" id="classe-add-nom" type="text" class="validate">
+                  <label for="classe-add-nom">Nom</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <a class="btn fond-color-2 color-1 col offset-s1 s4" onclick="ClasseEditor.close()">Fermer</a>
+            <a class="btn fond-color-2 color-4 col offset-s2 s4" id="classe-add-btn" onclick="ClasseEditor.valid()">Ajoouter</a>
+        </div>
+    </div>
+</div>
+

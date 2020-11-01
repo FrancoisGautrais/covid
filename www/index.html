@@ -1,0 +1,86 @@
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <meta name="viewport" content="width=device-width, user-scalable=no">
+  <!--<link rel="stylesheet" type="text/css" href="/css/materialize.css">
+  <link rel="stylesheet" type="text/css" href="/gen/colors.css">
+  <link rel="stylesheet" type="text/css" href="/css/icons.css">
+  <link rel="stylesheet" type="text/css" href="/css/common.css">-->
+
+    <#css_import("/css/materialize.css", "/gen/colors.css", "/css/icons.css", "/css/common.css")>
+  <title>Recherche avancée</title>
+</head>
+
+<body>
+    <!--
+    <script type="text/javascript" src="/js/third-party/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/third-party/materialize.min.js"></script>
+    <script type="text/javascript" src="/js/third-party/chart.min.js"></script>
+    <script type="text/javascript" src="/js/utils.js"></script>
+    <script type="text/javascript" src="/js/modals.js"></script>
+    <script type="text/javascript" src="/js/init.js"></script>
+    <script type="text/javascript" src="/js/app.js"></script>
+    <script type="text/javascript" src="/js/operations.js"></script>
+    <script type="text/javascript" src="/js/category.js"></script>
+    <script type="text/javascript" src="/js/classe.js"></script>
+    <script type="text/javascript" src="/js/parser.js"></script>
+    <script type="text/javascript" src="/js/statistiques.js"></script>
+    <script type="text/javascript" src="/js/graphiques.js"></script>
+    <script type="text/javascript" src="/js/options.js"></script>
+    <script type="text/javascript" src="/js/localdata.js"></script>
+    <script type="text/javascript" src="/js/import.js"></script>
+    <script type="text/javascript" src="/js/api.js"></script>
+    -->
+    <#js_import("/js/third-party/jquery.min.js", "/js/third-party/materialize.min.js", "/js/third-party/chart.min.js",
+                "/js/utils.js", "/js/modals.js", "/js/init.js", "/js/app.js", "/js/templates.js",
+                "/js/graphique_modal.js", "/js/graphiques.js", "/js/localdata.js", "/js/api.js")>
+
+    <#include("www/gen/header.html")>
+    <#include("www/gen/modals.html")>
+
+
+
+    <main>
+        <div class="container row">
+            <div class="row"><a class="col btn fond-color-2" onclick="GraphEditor.open(null)">Ajouter un graphique</a></div>
+
+            <!--<div class="row" id="main-root">
+
+            </div>-->
+
+            <div class="" id="main-root">
+            </div>
+
+        </div>
+
+    </main>
+
+
+
+    <#include("www/gen/footer.html")>
+</body>
+<style>
+
+
+main {
+    padding-top: 0px;
+}
+
+.tab-elem {
+    padding-right: 10px ! important;
+    padding-left: 10px ! important;
+    padding-right: 0px ! important;
+    padding-left: 0px ! important;
+}
+
+.container {
+    padding-top: 10px !important;
+}
+
+</style>
+
+</html>

@@ -1,0 +1,218 @@
+<style>
+.title {
+    font-size: 24px;
+}
+.title-div {
+    margin-left: 48px;
+    position: relative;
+    top: -8px;
+}
+
+
+.logo {
+}
+
+
+.menu-icon {
+    font-size: 32px ! important;
+    margin-right: 10px;
+}
+
+.header {
+    margin: 0 ! important;
+    padding-top: 10px;
+    height: 48px;
+}
+.header > a {
+
+}
+
+.sidenav {
+
+}
+
+.nav-text {
+    font-size: 15px ! important;
+    height: 40px ! important;
+}
+
+.nav-text-little {
+    font-size: 12px ! important;
+    height: 30px ! important;
+    top: -5px ! important;
+}
+
+.navbar-item-run {
+}
+
+.navbar-item-run > i {
+    display: float;
+    position: relative;
+    top: -20px;
+    font-size: 20px;
+    margin-right: 5px;
+}
+
+.navbar-item-run > a{
+    display: float;
+    margin-right: 40px;
+}
+
+.navbar-item-little {
+    height: 30px ! important;
+    padding-left: 16px;
+}
+
+.header > .right {
+    position: absolute;
+    top: 2px;
+    right: 5px;
+}
+
+.header > .left {
+    position: absolute;
+    top: 2px;
+    left: 5px;
+}
+.menu-input {
+    margin-left: 5px !important;
+    padding-right: 5px !important;
+    width: calc( 100% - 10px) ! important;
+}
+
+.main-search {
+    top: -5px ! important;
+    position: absolute;
+    right: 5px;
+    float: right ! important;
+    width: 66%;
+
+}
+
+.main-search > input {
+    height: 32px ! important;
+}
+
+.main-search > i {
+    font-size: 32px ! important;
+    top: 4px ! important;
+    left: 10px;
+}
+
+.sidenav-icon {
+    top: 11px ! important;
+}
+
+</style>
+
+<ul id="slide-out" class="side-nav menu-text fond-color-1">
+    <li class="navbar-item color-4">Outils</li>
+    <li class="navbar-item"><a class="waves-effect nav-text color-4 " onclick="ClasseManager.open()">Classes</a></li>
+    <li class="navbar-item"><a class="waves-effect nav-text color-4 " onclick="CategoryManager.open()">Catégories</a></li>
+    <li class="navbar-item"><a class="waves-effect nav-text color-4 " onclick="JsonImporter.open()">Importer</a></li>
+    <li class="navbar-item"><a class="waves-effect nav-text color-4 " onclick="ExprManager.open()">Expressions</a></li>
+
+
+    <li class="navbar-item color-4">Pages</li>
+    <li class="navbar-item"><a class="waves-effect nav-text color-4 " onclick="App.selectTabOperations()">Opérations</a></li>
+    <li class="navbar-item"><a class="waves-effect nav-text color-4 " onclick="App.selectTabStatistiques()">Statistiques</a></li>
+    <li class="navbar-item"><a class="waves-effect nav-text color-4 " onclick="App.selectTabOptions()">Options</a></li>
+
+
+
+</ul>
+<div class="header fond-color-1 row">
+    <!--<span data-target="slide-out" class="sidenav-trigger sidenav-icon left color-4"><i class="material-icons menu-icon">menu</i></span>-->
+    <span class="title-div">
+        <a href="/" class="title color-4">Covid 19</a>
+    </span>
+    <span class="tab-button-root right">
+        <a onclick="delete_data()" ><i class="material-icons menu-icon">delete</i></a>
+    </span>
+</div>
+
+
+
+<div class="card darken-1 modal fond-color-1" id="error">
+    <div class="card-content">
+        <center><span class="card-title color-4" id="error-title"></span></center>
+    </div>
+    <div class="card-action">
+        <p class="color-4" id="error-text">
+
+        </p>
+        <div class="row">
+            <a class="btn fond-color-2 color-4 col offset-s3 s6" onclick="_Error.close()">OK</a>
+        </div>
+    </div>
+</div>
+
+<div class="card darken-1 modal fond-color-1" id="confirm">
+    <div class="card-content">
+        <center><span class="card-title color-4" id="confirm-title"></span></center>
+    </div>
+    <div class="card-action">
+        <p class="color-4" id="confirm-text">
+
+        </p>
+        <div class="row">
+            <a id="confirm-no" class="btn fond-color-2 color-4 col s5">Non</a>
+            <a id="confirm-yes" class="btn fond-color-2 color-4 col offset-s2 s5">Oui</a>
+        </div>
+    </div>
+</div>
+
+
+<div class="card light-grey darken-1 modal" id="loading">
+    <div class="card-content">
+        <center><span class="card-title" id="loading-text">r</span></center>
+    </div>
+    <div class="card-action">
+        <center>
+            <div class="preloader-wrapper big active">
+                <div class="spinner-layer spinner-blue-only">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+        </center>
+    </div>
+</div>
+
+<style>
+.tab-button {
+    color: var(--color4);
+    background-color: var(--color2);
+    font-size: 24px;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    border: solid 5px var(--color2);
+    border-radius: 3px;
+    position: relative;
+    top: -4px;
+    box-shadow: 2px 2px 2px 2px #00000022;
+}
+
+.tab-button-root {
+    margin-left: 50px;
+    margin-top: 4px;
+
+}
+
+.tab-button-root > a > i {
+    color: #ffffffff;
+}
+
+.tab-button-root > .btn > i {
+    font-size: 28px ! important;
+}
+</style>

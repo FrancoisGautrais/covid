@@ -1,0 +1,187 @@
+<#include("www/gen/modalClasse.html")>
+<#include("www/gen/modalCategory.html")>
+
+
+<div class="card darken-1 modal" id="json-import">
+    <div class="card-content">
+        <center><h2>Charger des données</h2></center>
+    </div>
+    <div class="card-action">
+        <div class="row">
+            <h2>Importer depuis un texte</h2>
+            <div class="row s12">
+                <div class="input-field col s12">
+                    <textarea id="ta-import-json" class="materialize-textarea" data-on-paste="onPaste"></textarea>
+                    <label for="ta-import-json">Texte</label>
+                </div>
+            </div>
+            Connectez vous à votre compte sur un autre onglet, saisissez votre numéro de compte, générez le lien et collez le
+            <div class="row s12">
+                <a class="btn fond-color-2 input-field" target="_blank" data-bind="link">Aller À</a>
+            </div>
+
+            <h2>ou Importer depuis un fichier</h2>
+            <form enctype="multipart/form-data" action="/upload/image" method="post">
+                <div class="file-field input-field">
+                    <div class="btn">
+                        <span>File</span>
+                        <input type="file">
+                    </div>
+                    <div class="file-path-wrapper">
+                        <input class="file-path validate" id="file-import" type="text">
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="row">
+            <a class="btn fond-color-2 color-1 col offset-s1 s4" onclick="JsonImporter.import_from_json()">Fermer</a>
+            <a class="btn fond-color-2 color-4 col offset-s2 s4" id="classe-add-btn" onclick="JsonImporter.import()">Importer</a>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card darken-1 modal" id="expr-editor">
+    <div class="card-content">
+        <center><h2><span id="expr-add-title"></span> une expression</h2></center>
+    </div>
+    <div class="card-action">
+        <div class="hidden" data-bind="type">expression</div>
+        <div class="row">
+            <div class="input-field col s6">
+                  <input placeholder="Nom" data-bind="key" id="expr-name" type="text" class="validate">
+                  <label for="expr-name">Nom</label>
+            </div>
+            <div class="input-field col s12">
+                  <input placeholder="Nom" data-bind="value" id="expr-text" type="text" class="validate">
+                  <label for="expr-text">Expression</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="row col s10" id="expr-cats-root">
+            </div>
+            <div class="row col s2">
+                <a class="btn col s12 row fond-color-3" onclick="ExprEditor.append('+')"><center>+</center></a>
+                <a class="btn col s12 row fond-color-3" onclick="ExprEditor.append('-')"><center>-</center></a>
+                <a class="btn col s12 row fond-color-3" onclick="ExprEditor.append('*')"><center>*</center></a>
+                <a class="btn col s12 row fond-color-3" onclick="ExprEditor.append('/')"><center>/</center></a>
+            </div>
+        </div>
+
+        <div class="row">
+            <a class="btn fond-color-2 color-4 col offset-s1 s4" data-on="close">Fermer</a>
+            <a class="btn fond-color-2 color-4 col offset-s2 s4" id="expr-add-btn" data-on="valid">Ajouter</a>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card darken-1 modal" id="expr-manager">
+    <div class="card-content">
+        <center><h2>Expressions</h2></center>
+    </div>
+    <div class="card-action">
+        <ul class="collection with-header" id="expr-manager-root">
+
+        </ul>
+
+
+
+        <div class="row">
+            <a class="btn fond-color-2 color-4 col offset-s4 s4"  data-on="close">Fermer</a>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<div class="card darken-1 modal" id="graph-editor">
+    <div class="card-content">
+        <center><h2><span id="graph-editor-title" data-bind="action"></span> un graphique</h2></center>
+    </div>
+
+    <div class="card-action">
+
+        <div class="input-field col s12">
+          <input placeholder="Nom" id="graphname" type="text" class="validate" data-bind="name">
+          <label for="graphname">Nom du graph</label>
+        </div>
+
+        <div class="input-field col s12">
+            <select data-bind="zone" data-on="on_zone_change">
+                <option value="metropole" selected>Métropole</option>
+                <option value="departement" >Département</option>
+            </select>
+            <label>Type de zone</label>
+        </div>
+
+        <div class="row" id="zone-metropole">
+            <div class="input-field col s8">
+                <select data-bind="villes" id="villes-select" multiple>
+                    <option value="" disabled selected>Choisissez des villes</option>
+                </select>
+                <label>Villes</label>
+            </div>
+            <div class="input-field col s4">
+                <select data-bind="villes_age" id="villes-age">
+                    <option value="0" selected>Tous</option>
+                    <option value="65">65 ans et +</option>
+                </select>
+                <label>Age</label>
+            </div>
+        </div>
+        <div class="row" id="zone-departement">
+            <div class="input-field col s8">
+                <select data-bind="departements" id="departements-select" multiple>
+                    <option value="" disabled selected>Choisissez des départements</option>
+                </select>
+            </div>
+            <div class="input-field col s4">
+                <select data-bind="departements_age" id="dep-age">
+                    <option value="0" selected>Tous</option>
+                    <option value="9">9 ans</option>
+                    <option value="19">19 ans</option>
+                    <option value="29">29 ans</option>
+                    <option value="39">39 ans</option>
+                    <option value="49">49 ans</option>
+                    <option value="59">59 ans</option>
+                    <option value="69">69 ans</option>
+                    <option value="79">79 ans</option>
+                    <option value="89">89 ans</option>
+                    <option value="99">99 ans</option>
+                </select>
+                <label>Age</label>
+            </div>
+        </div>
+        <div class="switch row" >
+            <label>
+                <input type="checkbox" data-bind="begin_at_zero">
+                <span class="lever"></span>
+            </label> Commencer à tracer à 0
+        </div>
+
+        <div class="row">
+            <div class="input-field col-s6">
+                <input type="text" class="datepicker" data-bind="datemin" id="_datemin">
+                <label for="_datemin" class="">Date min</label>
+            </div>
+            <div class="input-field col-s6">
+                <input type="text" class="datepicker" data-bind="datemax" id="_datemax">
+                <label for="_datemax" class="">Date max</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <a class="btn fond-color-2 color-4 col offset-s1 s4" data-on="close">Fermer</a>
+            <a class="btn fond-color-2 color-4 col offset-s2 s4" id="graph-editor-add-btn" data-on="valid"><span id="graph-editor-button" data-bind="action"></a>
+        </div>
+    </div>
+</div>

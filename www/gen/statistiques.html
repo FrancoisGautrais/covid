@@ -1,0 +1,176 @@
+<template id="globalChart">
+    <li>
+        <div class="collapsible-header" name="name" data-action="update-request"  data-type="label"></div>
+        <div class="collapsible-body">
+            <div class="row">
+                <div class="col s9 fond-color-4">
+                    <canvas class="chart" data-class="GraphiqueGlobal" ></canvas>
+                </div>
+                <div class="row col s3 chart-params" >
+                    <template src="graph_common_start"></template>
+                    <div class="input-field col s9" >
+                        <select name="category" data-action="update-request"  data-type="category" multiple>
+                        </select>
+                        <label>Catégories</label>
+                    </div>
+                    <template src="graph_common_end"></template>
+                </div>
+            </div>
+        </div>
+    </li>
+</template>
+
+<template id="timeChart">
+    <li>
+        <div class="collapsible-header" name="name" data-action="update-request"  data-type="label"></div>
+        <div class="collapsible-body">
+            <div class="row">
+                <div class="col s9 fond-color-4">
+                    <canvas class="chart"  ></canvas>
+                </div>
+                <div class="row col s3  chart-params" id="timeChartParams">
+
+                    <template src="graph_common_start"></template>
+                    <div class="input-field col s6" >
+                        <select name="startAt" data-action="update-request"  data-type="select">
+                            <option value="solde" selected>Solde</option>
+                            <option value="relative">Relatif</option>
+                            <option value="zero" >Zéro</option>
+                        </select>
+                        <label>Décalage Y</label>
+                    </div>
+                    <div class="col s6 row" >
+                        <p>
+                            <input type="checkbox" id="dsaaaadd" name="useExpr"  data-action="update-request" data-type="boolean" checked/>
+                            <label for="dsaaaadd">Utiliser les expressions</label>
+                        </p>
+                    </div>
+                    <div data-if="request.useExpr=false">
+                        <div class="input-field col s9" >
+                            <select name="category" data-action="update-request"  data-type="category" multiple>
+                            </select>
+                            <label>Catégories</label>
+                        </div>
+                        <a class="col s3 btn input-field"  data-call="clearCategories"><i class="material-icons">clear</i></a>
+                    </div>
+
+                    <div data-if="request.useExpr=true" class="row col s12">
+                        <a class="col s2 btn input-field" onclick="ExprManager.open()"><i class="material-icons">add</i></a>
+                        <div class="input-field col s7">
+                            <select name="customExpr" data-action="update-request"  data-type="expr" multiple>
+                            </select>
+                            <label>Expressions</label>
+                        </div>
+                        <a class="col s3 btn input-field" data-call="clearExpressions"><i class="material-icons">clear</i></a>
+                    </div>
+                    <template src="graph_common_end"></template>
+
+
+                </div>
+            </div>
+        </div>
+    </li>
+</template>
+
+<template id="graph_common_start">
+    <div class="input-field col s6" >
+        <select name="add" data-action="update-request"  data-type="select">
+            <option value="normal" selected>Valeurs relatives</option>
+            <option value="abs">Valeurs absolues</option>
+        </select>
+        <label>Valeurs</label>
+    </div>
+    <div class="input-field col s6" >
+        <select name="field" data-action="update-request"  data-type="select">
+            <option value="montant" selected>Montant</option>
+            <option value="solde" >Solde</option>
+        </select>
+        <label>Champ</label>
+    </div>
+
+    <div class="col s6 row" >
+        <p>
+            <input type="checkbox" id="adsaaaadd" name="cumul"  data-action="update-request" data-type="boolean" checked/>
+            <label for="adsaaaadd">Cumul</label>
+        </p>
+    </div>
+</template>
+
+<template id="graph_common_end">
+    <div class="row col s12">
+        <a class="input-field col s1 btn" data-call="prevPeriod"><</a>
+        <div class="col s5" >
+            Date Min :
+            <input type="text" class="datepicker" name="dateMin" placeholder="Date min" data-action="update-request" data-type="date">
+        </div>
+        <div class="col s5">
+            Date Max :
+            <input type="text" class="datepicker" name="dateMax" placeholder="Date max"  data-action="update-request" data-type="date">
+        </div>
+        <a class="input-field col s1 btn" data-call="nextPeriod">></a>
+    </div>
+    <div class="input-field col s6" >
+        <select name="type" data-action="update-chart"  data-type="select">
+            <option value="bar" selected>Barres</option>
+            <option value="horizontalBar" >Barres horizontales</option>
+            <option value="doughnut">Donnut</option>
+            <option value="pie">Camembert</option>
+            <option value="polarArea">Aire</option>
+            <option value="line" >Ligne</option>
+        </select>
+        <label>Type</label>
+    </div>
+    <div class="input-field col s6" >
+        <select name="period" data-action="update-request"  data-type="select">
+            <option value="year" >Année</option>
+            <option value="month" >Mois</option>
+            <option value="week">Semaine</option>
+            <option value="day" selected>Jour</option>
+        </select>
+        <label>Période</label>
+    </div>
+    <div class="col s6" data-if="chart.type=bar,horizontalBar,line">
+        <p>
+            <input type="checkbox" id="kjfsdhksdfhf" name="is-stacked"  data-action="update-request" data-type="boolean" checked/>
+            <label for="kjfsdhksdfhf" >Empiler</label>
+        </p>
+    </div>
+    <div class="col s12">
+        <a class="btn fond-color-2" data-action="update-operations">Voir</a>
+        <a class="btn fond-color-2" data-call="fullscreen">Fullscreen</a>
+        <a class="btn fond-color-3" data-call="askSave">Sauvegarder</a>
+        <a class="btn fond-color-1" data-call="askRremove">Supprimer</a>
+    </div>
+</template>
+
+
+
+<ul class="collapsible" data-collapsible="accordion" id="chart-root">
+</ul>
+<a class='dropdown-button btn color-2' href='#' data-activates='add-graph-btn'>Ajouter un graphique</a>
+
+<ul id='add-graph-btn' class='dropdown-content'>
+    <li><a onclick="GraphiqueParams.GlobalChart('', true)">Graphique global </a></li>
+    <li><a onclick="GraphiqueParams.TimeChart('', true)">Graphique temporel</a></li>
+</ul>
+
+
+<div class="card darken-1 modal" id="chart-save">
+    <div class="card-content">
+        <center><h2>Sauvegarder un graphique</h2></center>
+    </div>
+    <div class="card-action">
+        <div class="row">
+            <div class="input-field col s12">
+                  <input placeholder="Nom" id="chart-add-nom"  data-bind="key" type="text" class="validate">
+                  <label for="chart-add-nom">Nom</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <a class="btn fond-color-1 color-4 col offset-s1 s4" data-on="close">Annuler</a>
+            <a class="btn fond-color-2 color-4 col offset-s2 s4" data-on="valid">Ajouter</a>
+        </div>
+    </div>
+</div>
+

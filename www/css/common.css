@@ -1,0 +1,117 @@
+html{
+    height: 100%;
+}
+
+body {
+    height: 100%;
+}
+.container {
+    width: 100%;
+    max-width: none;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+main {
+    min-height: calc(100% - 80px);
+    padding-top: 20px;
+}
+
+.const {
+    display: none;
+}
+
+.big-icon {
+    font-size: 96px ! important;
+}
+
+.medium-icon {
+    font-size: 64px ! important;
+}
+
+.medium-small-icon {
+    font-size: 48px ! important;
+}
+
+.medium-text {
+    font-size: 14px ! important;
+}
+
+.text-container {
+    margin-left: 20px;
+}
+
+h1 {
+    color: var(--color5);
+    font-weight: 300;
+    font-size: 3rem;
+}
+
+h2 {
+    color: var(--color3);
+    font-weight: 300;
+    font-size: 2rem;
+}
+
+h3 {
+    color: var(--color2);
+    font-weight: 300;
+    font-size: 2rem;
+
+}
+
+h4 {
+
+}
+
+h5 {
+
+}
+
+p {
+    color: var(--color5);
+    font-weight: 300;
+}
+
+.chart-container {
+    background-color: #FFFFFF;
+    min-height: 70vh;
+    max-height: 70vh;
+}
+
+.chart-source {
+    font-size: 10px;
+    text-align: center;
+    width: 100%;
+    display: block;
+    color: #7f7f7f;
+}
+.chart-source > a{
+    color: #7f7fff;
+}
+
+.graph_body {
+
+}
+
+.graph_header {
+	border: solid var(--color3);
+	border-width: 1.5px;
+	border-radius: 1.5px;
+	padding: 5px 5px 5px 5px;
+}
+
+
+
+.graph_header > a > i {
+	position: relative;
+	top: -35px;
+	font-size: 40px;
+	margin-right: 5px;
+	border-radius: 2px;
+	color: black;
+}
+
+.chart-root {
+    margin-bottom: 70px;
+}
