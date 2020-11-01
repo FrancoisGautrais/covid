@@ -129,4 +129,7 @@ class Server(RESTServer):
         res.serv_json_ok(out)
 
 server = Server()
-server.listen(8080)
+
+import sys
+port = int(sys.argv[1]) if len(sys.argv)>1 else 8080
+server.listen(port)
