@@ -88,8 +88,8 @@ class Server(RESTServer):
         out = {
             "table" : table,
             "age" : age,
-            "datemin" : datemin,
-            "datemax" : datemax,
+            "datemin" : body["datemin"] if (body and "datemax" in body) else None,
+            "datemax" : body["datemax"] if (body and "datemax" in body) else None
         }
         if table == "metropole":
             out["metropoles"] = body["metropoles"]
