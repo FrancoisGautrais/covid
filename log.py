@@ -62,7 +62,6 @@ class Log:
 
     @staticmethod
     def init(level=DEBUG, fd=sys.stdout):
-        fd=open("app.log", "w")
         Log._INSTANCE = Log(level, fd)
 
 
