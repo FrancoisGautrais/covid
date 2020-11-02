@@ -3,7 +3,7 @@
 PID_FILE=covid.pid
 PYTHON_MAIN=server.py
 PYTHON_MAIN_ARGS=8081
-LOGFILE=covid_log.log
+LOGFILE=covid.log
 LIBS_PATH=../libs/python
 
 
