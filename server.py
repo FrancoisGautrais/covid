@@ -102,6 +102,8 @@ class Server(RESTServer):
     def _handle_get_data(self, req: HTTPRequest, res: HTTPResponse):
         body = req.body_json()
         out = []
+        log.d(body)
+        log.d("")
         i=0
         if not isinstance(body, list):
             return res.serv_json_bad_request("Erreur les données POST doivent être une liste")

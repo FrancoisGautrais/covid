@@ -25,6 +25,11 @@ function toggleFullscreen(elem) {
   }
 }
 
+function to_int(x){
+    if(typeof x == "string") return parseInt(x)
+    return x
+}
+
 var COLORS = [
     0x6ACDCCFF, 0xC3B74BFF, 0x57C757FF, 0xD7A988FF, 0xDDCE98FF, 0xC6ECCBFF, 0xCDD2EEFF, 0xCBBAE8FF, 0xCD756AFF, 0x90DAA6FF
 ]
@@ -170,16 +175,38 @@ class Graphique {
         this.legendRoot.append("Sources: "+legend.source+' <a href="'+legend.url+'">'+legend.url+'</a> ('+legend.last_update+')')
     }
 
+    get_title(data){
+        var agestr;
+        var age =  to_int(data.age)
+        var zone = ""
+        if(data.table=="metropole"){
+            zone = "métropole"
+            if(age){
+                agestr="("+age+" ans et plus)"
+            }else{
+                agestr="(toute la population)"
+            }
+        }else{
+            zone = "département"
+            if(!age){
+                agestr="(toute la population)";
+            }else{
+                agestr="("+(age-9)+"-"+age+" ans )";
+            }
+        }
+        return {
+            display: true,
+            text: "Taux d'incidence par "+zone+" "+agestr
+        }
+    }
+
     set_simple_data(data){
         this.data={}
         this.chart.data.datasets=[]
         this.set_legend(data.legend)
         this.set_label(data)
         this.add_dataset_from_simple(COLORS[Utils.getRandomInt(COLORS.length-1)], data)
-        this.chart.options.title={
-            display: true,
-            text: "Taux d'incidence par "+data.table
-        }
+        this.chart.options.title=this.get_title(data)
         this.update()
         var chart = this.chart
         setTimeout(function(){chart.resize()}, 1000)
@@ -195,6 +222,7 @@ class Graphique {
         }
         this.data={}
         this.chart.data.datasets=[]
+        this.chart.options.title=this.get_title(data)
         this.set_legend(data.legend)
         var isMetro = data.table=="metropole"
         var field = isMetro?"metropoles":"departements"

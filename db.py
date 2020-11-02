@@ -178,7 +178,6 @@ class DB(sqlite_connector.SQConnector):
         }
         out = []
         if len(villes):
-            print(data)
             ret["labels"] = list(map(lambda x: utils.str_date(x[0]), self.exec("""
                 select date from incidence_metro where metropole='%s' and age=%d and 
                 date>=%d and date<=%d order by date asc 
