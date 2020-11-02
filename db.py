@@ -134,10 +134,11 @@ class DB(sqlite_connector.SQConnector):
 
     def update(self):
         toload = [sqlloader.IncidenceMetroLoader, sqlloader.IncidenceDepLoader]
-
+        log.i("Début de mise à jour")
+        inserted = 0
         for classe in toload:
-            classe.from_data_gouv(self)
-
+            inserted+=classe.from_data_gouv(self)
+        log.i("Fin de mise à jour : ",inserted," données modifiées ou ajoutées")
         self.var_set("last_update", time.time())
 
     """

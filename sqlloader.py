@@ -154,9 +154,12 @@ class IncidenceMetroLoader(SQLoader):
             "encodingFormat": "csv",
             "name": "sg-metro-opendata"
         })
+        inserted = 0
         for x in ret:
             tmp = IncidenceMetroLoader(sql, url=x['url'], meta=x)
             tmp.load()
+            inserted+=tmp.inserted
+        return inserted
 
 
 
@@ -172,9 +175,12 @@ class IncidenceDepLoader(SQLoader):
             "encodingFormat": "csv",
             "name" : "quot-dep"
         })
+        inserted = 0
         for x in ret:
             tmp = IncidenceDepLoader(sql, url=x['url'], meta=x)
             tmp.load()
+            inserted+=tmp.inserted
+        return inserted
 
 
 
