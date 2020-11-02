@@ -161,14 +161,14 @@ class DB(sqlite_connector.SQConnector):
     def query_multiple_metropole(self, data):
         villes = data["metropoles"]
         age = data["age"]
-        datemin = data["datemin"]
-        datemax = data["datemax"]
+        datemin = data["datemin"] if ("datemin" in data and data["datemin"]) else 0
+        datemax =  data["datemax"] if ("datemax" in data and data["datemax"]) else int(time.time())
         ret = {
             "type" : "multiple",
             "table" : "metropole",
             "headers" : villes,
-            "datemin" : datemin,
-            "datemax" : datemax,
+            "datemin" : data['datemin'] if ("datemin" in data) else None,
+            "datemax" : data['datemax'] if ("datemax" in data) else None,
             "zones" : villes,
             "legend" : self.get_legend("metropole"),
             "age" : age,
@@ -213,15 +213,15 @@ class DB(sqlite_connector.SQConnector):
     def query_multiple_departement(self, data):
         deps = data["departements"]
         age = data["age"]
-        datemin = data["datemin"]
-        datemax = data["datemax"]
+        datemin = data["datemin"] if ("datemin" in data and data["datemin"]) else 0
+        datemax =  data["datemax"] if ("datemax" in data and data["datemax"]) else int(time.time())
         ret = {
             "type" : "multiple",
             "table" : "departement",
             "legend" : self.get_legend("departement"),
             "headers" : utils.resolve_dep(deps),
-            "datemin" : datemin,
-            "datemax" : datemax,
+            "datemin" : data['datemin'] if ("datemin" in data) else None,
+            "datemax" : data['datemax'] if ("datemax" in data) else None,
             "zones" : deps,
             "last_update" : utils.str_date(self.last_update("incidence_dep")),
             "age" : age,
@@ -263,8 +263,8 @@ class DB(sqlite_connector.SQConnector):
         data = utils.dictassign({}, DEFAULT_QUERY_METROPOLE, data)
         ville = data["ville"]
         age = int(data["age"])
-        datemin = data["datemin"]
-        datemax =  data["datemax"] if data["datemax"] else int(time.time())
+        datemin = data["datemin"] if ("datemin" in data and data["datemin"]) else 0
+        datemax =  data["datemax"] if ("datemax" in data and data["datemax"]) else int(time.time())
         return {
             "type" : "simple",
             "table" : "metropole",
@@ -285,8 +285,8 @@ class DB(sqlite_connector.SQConnector):
         data = utils.dictassign({}, DEFAULT_QUERY_DEP, data)
         dep = int(data["dep"])
         age = int(data["age"])
-        datemin = data["datemin"]
-        datemax =  data["datemax"] if data["datemax"] else int(time.time())
+        datemin = data["datemin"] if ("datemin" in data and data["datemin"]) else 0
+        datemax =  data["datemax"] if ("datemax" in data and data["datemax"]) else int(time.time())
 
         tmp = self.exec("""
             select date, population, positif, age from incidence_dep where dep='%s' and age=%d and 
