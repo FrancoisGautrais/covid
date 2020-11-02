@@ -72,7 +72,9 @@ class SQLoader:
         self.table=None
         self.url = url if url else file
         self.meta=meta
+        self.dateModified=parse_date(meta["dateModified"]).timestamp()
         self.latest = 0
+        self.do_test=True
         self.date = parse_date(meta["dateModified"]).timestamp() if (meta and "dateModified" in meta) else 0
         if url:
             req = requests.get(url)
@@ -113,7 +115,11 @@ class SQLoader:
         raise NotImplemented()
 
     def test(self):
-        return self.db.one("select count(*) from metadata where table_dest='%s' and url='%s' " % (self.table, self.url))<=0
+        tmp = self.db.onerow("select max(date) from metadata where table_dest='%s' and url='%s'" % (self.table, self.url))
+        if not tmp or not len(tmp) or not tmp[0]: return True
+        return tmp[0]<self.dateModified
+
+
 
 
 class IncidenceMetroLoader(SQLoader):
@@ -168,6 +174,7 @@ class IncidenceDepLoader(SQLoader):
     def __init__(self, sql, file=None, url=None, meta=None):
         SQLoader.__init__(self, sql, file, url, meta)
         self.table='incidence_dep'
+        self.do_test = False
 
     @staticmethod
     def from_data_gouv(sql):
@@ -177,6 +184,7 @@ class IncidenceDepLoader(SQLoader):
         })
         inserted = 0
         for x in ret:
+            log.i(x['url'], x["dateModified"])
             tmp = IncidenceDepLoader(sql, url=x['url'], meta=x)
             tmp.load()
             inserted+=tmp.inserted
