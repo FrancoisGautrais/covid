@@ -1,6 +1,6 @@
 import datetime
 
-import log
+from http_server import log
 
 class CsvExporter:
 

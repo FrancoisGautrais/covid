@@ -1,7 +1,7 @@
 import time
 from threading import Thread
 
-import log
+from http_server import log
 import sqlite_connector
 import sqlloader
 import utils

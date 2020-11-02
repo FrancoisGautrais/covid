@@ -3,7 +3,7 @@ import json
 
 import requests
 import utils
-import log
+from http_server import log
 
 
 METROPOLES_LIST = {

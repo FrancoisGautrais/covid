@@ -5,19 +5,18 @@ from http_server.httprequest import HTTPRequest, HTTPResponse
 from http_server.restserver import RESTServer
 from http_server.httpserver import HTTPServer
 
-import log
+from http_server.config import cfg
+from http_server import log
 import utils
 from db import DB
 
 class Server(RESTServer):
 
-
-
-
-    def __init__(self, ip="localhost", attrs={"mode" : HTTPServer.SPAWN_THREAD}, restOptions={}, dbfile="covid.sqlite"):
-        RESTServer.__init__(self, ip, attrs, restOptions)
-        log.Log.init(log.Log.DEBUG)
-        self.db = DB(dbfile)
+    def __init__(self):
+        RESTServer.__init__(self, cfg["listen.address"], cfg["server"], cfg["restoptions"])
+        logfile = cfg["log.filename"]
+        log.Log.init(cfg["log.level"])
+        self.db = DB(cfg["database.filename"])
 
         self.route("POST", "/query", self._handle_query)
         self.route_file_gen("GET", ["/", "index.html"], "www/index.html", needAuth=False)
@@ -32,6 +31,7 @@ class Server(RESTServer):
         self.route("GET", "/chart/departement/#departement/age/#age", self._handle_chart)
 
         self.route("GET", "/update", self._handle_update)
+        self.route_file("GET", "/database", "covid.sqlite", False, False)
         self.static("/", "www")
 
     def _handle_chart(self, req: HTTPRequest, res: HTTPResponse):
@@ -135,8 +135,3 @@ class Server(RESTServer):
             i+=1
         res.serv_json_ok(out)
 
-server = Server()
-
-import sys
-port = int(sys.argv[1]) if len(sys.argv)>1 else 8080
-server.listen(port)

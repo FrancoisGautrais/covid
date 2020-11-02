@@ -3,7 +3,7 @@ import time
 import json
 import sqlite3
 
-import log
+from http_server import log
 import resultset
 from hashlib import sha3_512
 import base64
