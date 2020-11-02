@@ -114,4 +114,12 @@ p {
 
 .chart-root {
     margin-bottom: 70px;
+    padding-top: 20px;
+
+}
+
+.graph_title {
+    font-size: 20;
+    font-weight: 700;
+    padding-left: 15px;
 }

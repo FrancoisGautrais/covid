@@ -72,11 +72,21 @@ function format_string(str, obj)
 
 function date_to_int(x)
 {
-    var arrstr = x.split("/"), arr=[]
-    for(var i=0; i<arrstr.length; i++)
-        arr.push(parseInt(arrstr[i]))
-    var date = new Date(arr[2], arr[1]-1, arr[0], 0,0,0)
-    return Math.floor(date.getTime()/1000)
+
+    var str = "date_to_int('"+x+"') =";
+    if(typeof x == "string"){
+        var arrstr = x.split("/"), arr=[]
+        for(var i=0; i<arrstr.length; i++)
+            arr.push(parseInt(arrstr[i]))
+        var date = new Date(arr[2], arr[1]-1, arr[0], 0,0,0)
+        console.log(str, Math.floor(date.getTime()/1000))
+        return Math.floor(date.getTime()/1000)
+    }
+    else if(typeof x == "int"){
+        return x
+    }
+    console.log(str, -1)
+    return null
 }
 
 
@@ -104,6 +114,7 @@ function dateargs(y, m=1, j=1){
 
 function int_to_date(timestamp)
 {
+    if(timestamp=="") return ""
     var date = new Date(timestamp * 1000)
     var y, m, d
     y=(date.getFullYear())+""
@@ -111,6 +122,7 @@ function int_to_date(timestamp)
     d=(date.getDate())+""
     if(m.length==1) m = "0"+m
     if(d.length==1) d = "0"+d
+    console.log("date_to_int('"+timestamp+"') =",d+"/"+m+"/"+y)
     return d+"/"+m+"/"+y
 }
 

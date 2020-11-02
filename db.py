@@ -1,4 +1,5 @@
 import time
+from threading import Thread
 
 import log
 import sqlite_connector
@@ -37,6 +38,14 @@ META_SCHEM = """
         date int,
         added int
     )   
+"""
+
+
+VAR_SCHEM = """
+    create table var (
+        key text primary key,
+        value text
+    )
 """
 
 
@@ -81,7 +90,36 @@ class DB(sqlite_connector.SQConnector):
         if not self.table_exists("metadata"):
             self.exec(META_SCHEM)
             self.commit()
-        self.update()
+
+        if not self.table_exists("var"):
+            self.exec(VAR_SCHEM)
+            self.commit()
+        #self.update()
+        self.update_thread()
+
+    def var_get(self, key, default=None):
+        if self.var_has(key): return self.one("select value from var where key='%s' " % key)
+        return default
+
+    def var_has(self, key):
+        return self.one("select count(value) from var where key='%s' " % key)>0
+
+    def var_set(self, key, val):
+        if self.var_has(key):
+            if isinstance(val, str): self.exec("update var set value='%s' where key='%s'" %(val, key))
+            elif isinstance(val, int): self.exec("update var set value=%d where key='%s'" %(val, key))
+            elif isinstance(val, float): self.exec("update var set value=%f where key='%s'" %(val, key))
+            else: raise Exception("Not implemented")
+        else:
+            if isinstance(val, str): self.exec("insert into var values ('%s', '%s')" %(key, val))
+            elif isinstance(val, int): self.exec("insert into var values ('%s', %d)" %(key, val))
+            elif isinstance(val, float): self.exec("insert into var values ('%s', %f)" %(key, val))
+            else: raise Exception("Not implemented")
+        self.commit()
+
+    def var_delete(self, key):
+        self.exec("delete from var where key='%s'" %key)
+        self.commit()
 
     def get_legend(self, table):
         return {
@@ -99,6 +137,8 @@ class DB(sqlite_connector.SQConnector):
 
         for classe in toload:
             classe.from_data_gouv(self)
+
+        self.var_set("last_update", time.time())
 
     """
          Entrée : {
@@ -138,6 +178,7 @@ class DB(sqlite_connector.SQConnector):
         }
         out = []
         if len(villes):
+            print(data)
             ret["labels"] = list(map(lambda x: utils.str_date(x[0]), self.exec("""
                 select date from incidence_metro where metropole='%s' and age=%d and 
                 date>=%d and date<=%d order by date asc 
@@ -151,10 +192,23 @@ class DB(sqlite_connector.SQConnector):
              )))
         return ret
 
+    def update_thread(self):
+        class updater(Thread):
 
+            def __init__(self, db):
+                Thread.__init__(self)
+                self.db=db
 
+            def run(self):
+                while True:
+                    try:
+                        self.db.update()
+                    except Exception as err:
+                        log.e("Erreur (update) : ", err)
+                    time.sleep(3600*2)
 
-
+        up = updater(self)
+        up.start()
 
     def query_multiple_departement(self, data):
         deps = data["departements"]

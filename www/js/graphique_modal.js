@@ -46,15 +46,22 @@ class GraphEditorModal extends AbsModal{
         if(this.id){
             var chart = App.chartsIndex[this.id]
             var m = chart.settings.table=="metropole"
+            console.log("Table = ", chart.settings.table)
             this.set_fields({
                 "id" : null,
                 "action" : "Modifier ",
                 "name" : chart.name,
+                "zone" : chart.settings.table,
+
                 "departements" : m?[]:chart.settings.zones,
                 "dep-age" : ""+(m?0:chart.settings.age),
                 "villes" : m?chart.settings.zones:[],
                 "villes-age" : (m?chart.settings.age:0),
-                "begin_at_zero" : true
+                "begin_at_zero" : true,/*
+                "datemin" : chart.settings.datemin?int_to_date(chart.settings.datemin):"",
+                "datemax" : chart.settings.datemax?int_to_date(chart.settings.datemax):""*/
+                "datemin" : chart.settings.datemin,
+                "datemax" : chart.settings.datemax
             })
 
         }
@@ -66,9 +73,12 @@ class GraphEditorModal extends AbsModal{
                 "name" : "",
                 "departements" : [],
                 "dep-age" : "0",
+                "zone" : "metropole",
                 "villes" : [],
                 "villes-age" : "0",
-                "begin_at_zero" : true
+                "begin_at_zero" : true,
+                "datemin" : "",
+                "datemax" : ""
             })
         }
         this.on_zone_change()
@@ -89,7 +99,8 @@ class GraphEditorModal extends AbsModal{
                     age : parseInt((this.fields.zone=="metropole")?this.fields.villes_age:this.fields.departements_age),
                     zones : (this.fields.zone=="metropole")?this.fields.villes:this.fields.departements,
                     datemin: this.fields.datemin,
-                    datemax: this.fields.datemax
+                    datemax: this.fields.datemax,
+                    table: this.fields.zone
                 },
                 id: this.id,
                 begin_at_zero: this.fields.begin_at_zero,

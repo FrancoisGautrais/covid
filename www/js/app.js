@@ -171,15 +171,22 @@ class Application {
     }
 
     load(){
-        var d = JSON.parse(LOCAL.get("charts"))
-        if(d){
-            for(const i in d){
-                var chart = d[i]
-                var tmp = new Graphique($("#main-root"), chart)
-                App.chartsIndex[tmp.id]=tmp
-                tmp.load(chart)
-                App.charts.push(tmp)
+        var str = LOCAL.get("charts")
+        if(str){
+            var d = JSON.parse(str)
+            if(d){
+
+                for(const i in d){
+                    var chart = d[i]
+                    var tmp = new Graphique($("#main-root"), chart)
+                    App.chartsIndex[tmp.id]=tmp
+                    tmp.load(chart)
+                    App.charts.push(tmp)
+                }
             }
+        }else
+        {
+            GraphEditor.open()
         }
     }
 
@@ -202,6 +209,11 @@ function delete_data() {
         LOCAL.remove("charts")
         window.location.href=window.location.href;
     })
+}
+
+function fullscreen_graph(id){
+    var chart = App.chartsIndex[id]
+    chart.fullscreen()
 }
 
 $(document).ready(function(){

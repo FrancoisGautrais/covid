@@ -89,9 +89,9 @@ class DataBind {
                         break;
                     default:
                         if(e.hasClass("datepicker")){
-                            value=e.val()?date_to_int(e.val()):null
-                        }else
-                            value=e.val()
+                            type="date"
+                        }
+                        value=e.val()
                         break
 
                 }break;
@@ -145,7 +145,13 @@ class DataBind {
                         value=e.prop("checked", !(((""+value).toLowerCase()!="false") && (value!="0")))
                         break;
                     default:
-                        value=e.val(value)
+                        if(e.hasClass("datepicker")){
+                            type="date"
+                            value=e.val(int_to_date(value))
+                        }
+                        else {
+                            value=e.val(value)
+                        }
                         break
 
                 }break;
@@ -242,6 +248,8 @@ class DataBind {
         for(const key in obj){
             this.field(key, obj[key])
         }
+        Materialize.updateTextFields();
+        App.formSelect()
     }
 
     updateFields(){

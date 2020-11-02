@@ -117,9 +117,10 @@ class Graphique {
         if(Object.keys(opt).length){
             this.root=$('<div id="'+this.id+'_root" class="chart-root"></div>')
 
-            this.liTitle=$('<div class="graph_header"><h6 id="'+this.id+'_name" >'+this.name+'</h6></div>')
+            this.liTitle=$('<div class="graph_header"><h6 class="graph_title" id="'+this.id+'_name" >'+this.name+'</h6></div>')
             this.liTitle.append($('<a class="right" onclick="remove_graph(\''+this.id+'\')"><i class="material-icons">remove</i></a>'))
             this.liTitle.append($('<a class="right" onclick="edit_graph(\''+this.id+'\')"><i class="material-icons">edit</i></a>'))
+            this.liTitle.append($('<a class="right" onclick="fullscreen_graph(\''+this.id+'\')"><i class="material-icons">fullscreen</i></a>'))
             this.liContent=$('<div class="chart-container"></div>')
 
             this.legendRoot = $('<i class="chart-source"></i>')

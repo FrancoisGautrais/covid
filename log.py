@@ -31,6 +31,7 @@ class Log:
         if lvl>=self.lvl:
             self.lock.acquire()
             self.fd.write(_time_str()+"|"+Log.LEVEL_STR[lvl]+"| "+s+"\n")
+            self.fd.flush()
             if self.fd!=sys.stdout:
                 print(_time_str()+"|"+Log.LEVEL_STR[lvl]+"| "+s+"\n")
             self.lock.release()
@@ -61,6 +62,7 @@ class Log:
 
     @staticmethod
     def init(level=DEBUG, fd=sys.stdout):
+        fd=open("app.log", "w")
         Log._INSTANCE = Log(level, fd)
 
 
