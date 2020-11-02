@@ -16,6 +16,7 @@ class Server(RESTServer):
 
     def __init__(self, ip="localhost", attrs={"mode" : HTTPServer.SPAWN_THREAD}, restOptions={}, dbfile="covid.sqlite"):
         RESTServer.__init__(self, ip, attrs, restOptions)
+        log.Log.init(log.Log.DEBUG)
         self.db = DB(dbfile)
 
         self.route("POST", "/query", self._handle_query)
@@ -70,6 +71,7 @@ class Server(RESTServer):
         if not isinstance(body, dict):
             return res.serv_json_bad_request("Erreur le body doit être un objet JSON")
 
+        log.d("/query ",body)
         if not "table" in body: return res.serv_json_bad_request("Erreur le champ 'table' est obligatoie")
         table = body ["table"]
         if not table in ["metropole", "departement"]:
@@ -102,8 +104,6 @@ class Server(RESTServer):
     def _handle_get_data(self, req: HTTPRequest, res: HTTPResponse):
         body = req.body_json()
         out = []
-        log.d(body)
-        log.d("")
         i=0
         if not isinstance(body, list):
             return res.serv_json_bad_request("Erreur les données POST doivent être une liste")
