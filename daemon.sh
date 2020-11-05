@@ -3,6 +3,8 @@
 LIBS_PATH=../libs/python
 export PYTHONPATH=$PYTHONPATH:$LIBS_PATH
 
+DIR=$(dirname $BASH_SOURCE )
+cd $DIR
 PID_FILE=covid.pid
 PYTHON_MAIN=main.py
 PYTHON_MAIN_ARGS=8081
@@ -10,11 +12,8 @@ PYTHON=python3
 LOGFILE=$($PYTHON $PYTHON_MAIN config log.filename)
 
 
-
-cd "$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-
 function fct_start {
-  $PYTHON $PYTHON_MAIN backup-log
+	$PYTHON $PYTHON_MAIN backup-log
 	nohup $PYTHON -u  $PYTHON_MAIN $PYTHON_MAIN_ARGS > $LOGFILE 2>&1 &
 	echo -n $! > $PID_FILE
 }
@@ -72,4 +71,3 @@ else
 	echo "Error on command line: $*"
 	exit 1
 fi
-
