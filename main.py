@@ -7,7 +7,7 @@ from http_server.config import cfg
 cfg.init({
     "listen" : {
         "address" : "localhost",
-        "port" : 8082
+        "port" : 8084
     },
     "server" : {
         "mode" : "spawn"
