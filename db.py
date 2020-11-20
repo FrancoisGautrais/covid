@@ -199,12 +199,23 @@ class DB(sqlite_connector.SQConnector):
                 Thread.__init__(self)
                 self.db=db
 
+            def try_update(self):
+                try:
+                    self.db.update()
+                    return True
+                except Exception as err:
+                    log.e("Erreur (update) : ", err)
+                    return False
+
             def run(self):
                 while True:
-                    try:
-                        self.db.update()
-                    except Exception as err:
-                        log.e("Erreur (update) : ", err)
+                    t = 1+(time.time()%(24*3600))/3600
+
+                    while t>19.5 and t<=21: #entre 19h30 et 20h30
+                        self.try_update()
+                        t = 1 + (time.time() % (24 * 3600)) / 3600
+                        time.sleep(60 * 20)
+
                     time.sleep(3600*2)
 
         up = updater(self)

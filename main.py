@@ -101,7 +101,6 @@ if __name__ == "__main__":
                     else: print("Un numero de port doit être donné après '-%s const'" % sys.argv[i-1])
         i += 1
 
-
     from server import Server
     server = Server()
     port = int(sys.argv[1]) if len(sys.argv) > 1 else 8080
