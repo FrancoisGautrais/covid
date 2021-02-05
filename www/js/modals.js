@@ -13,7 +13,6 @@ class DataBind {
         this.__cb_callbacks={}
         this._root=$("#"+this.__id)
         this._updateBind()
-
     }
 
     __get_callback(e){

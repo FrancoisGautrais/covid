@@ -5,7 +5,36 @@ from http_server.httprequest import HTTPRequest, HTTPResponse
 from http_server.restserver import RESTServer
 from http_server.httpserver import HTTPServer
 
-from http_server.config import cfg
+from http_server.config import  Config
+cfg=Config()
+
+
+cfg.init({
+    "listen" : {
+        "address" : "localhost",
+        "port" : 8084
+    },
+    "server" : {
+        "mode" : "spawn"
+    },
+    "database" : {
+        "filename" : "covid.sqlite"
+    },
+    "log" : {
+        "level" : "DEBUG",
+        "filename" : "covid.log"
+    },
+    "restoptions": {
+
+    }
+},
+[
+    "covid.cfg",
+    "~/.config/covid/covid.cfg",
+    "/usr/shar/covid/covid.cfg",
+    "/etc/covid/covid.cfg",
+])
+
 from http_server import log
 import utils
 from db import DB

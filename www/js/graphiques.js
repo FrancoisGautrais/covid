@@ -48,7 +48,6 @@ class Graphique {
 
     constructor(root, opt={}){
         var self = this;
-        console.log("Graphique::constructor : ", opt)
         this.name = ("name" in opt)?opt.name:""
         this.begin_at_zero = ("begin_at_zero" in opt)?opt.begin_at_zero:true
         this.id= ("id" in opt)?opt["id"]:Utils.randomId()
@@ -89,7 +88,6 @@ class Graphique {
         this.name=opt.name;
         this.begin_at_zero=opt.begin_at_zero;
         this.settings=opt.settings;
-        console.log("opt = ", opt)
         var data = {
             table : this.settings.table,
             age : this.settings.age,
@@ -98,7 +96,6 @@ class Graphique {
             datemin: this.settings.datemin,
             datemax: this.settings.datemax
         }
-        console.log("data = ", data)
         this.set_begin_at_zero(this.begin_at_zero)
         this.set_name(this.name)
         API.query(data, {

@@ -97,7 +97,6 @@ class Api
     }
 
     query(data, opt){
-        console.log("DATA = ", data)
         return this.ajax_post("/query", data, opt)
     }
 

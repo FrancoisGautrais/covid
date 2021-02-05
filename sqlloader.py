@@ -201,13 +201,13 @@ class IncidenceDepLoader(SQLoader):
         if (not ret):
             self.db.exec("insert into incidence_dep values ('%s', '%s', %s, %d, %d, %d, %d) " % (
                 id,
-                row[0], dt, int(float(row[2])), int(row[3]), int(float(row[4])), self.date
+                row[0], dt, int(float(row[4])), int(row[2]), int(float(row[3])), self.date
             ))
             #log.d("Dep Insert %s %s %s (%d)" % (row[0], str_date(dt), row[3], int(float(4))))
             return True
         elif ret[0]<self.date:
-            self.db.exec("update incidence_dep set positif=%d, population=%d, lastUpdate=%d where id='%s'"%(
-                int(float(row[3])), int(float(row[2])), self.date, id
+            self.db.exec("update incidence_dep set positif=%d,  lastUpdate=%d where id='%s'"%(
+                int(float(row[2])), self.date, id
             ))
             #log.d("Dep Update %s %s %s (%d) (%d<%d)" % (row[0], str_date(dt), row[3], int(float(4)), ret[0], self.date))
             return True

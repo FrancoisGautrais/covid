@@ -46,7 +46,6 @@ class GraphEditorModal extends AbsModal{
         if(this.id){
             var chart = App.chartsIndex[this.id]
             var m = chart.settings.table=="metropole"
-            console.log("Table = ", chart.settings.table)
             this.set_fields({
                 "id" : null,
                 "action" : "Modifier ",

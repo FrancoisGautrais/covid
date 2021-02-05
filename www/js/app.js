@@ -16,6 +16,7 @@ var dep_list = {"01":"Ain","02":"Aisne","03":"Allier","05":"Hautes-Alpes","04":"
 
 
 class Application {
+    DBG=null
     constructor() {
         App=this
         this.tabs={}
@@ -134,7 +135,6 @@ class Application {
             datemin: opt.settings.datemin,
             datemax: opt.settings.datemax
         }
-        console.log("add_multiple_chart_metro : data ", data)
         API.query(data, {
             success: function(d) {
                 tmp.set_multiple_data(d)
@@ -172,7 +172,9 @@ class Application {
 
     load(){
         var str = LOCAL.get("charts")
+        Application.DBG=str
         if(str){
+
             var d = JSON.parse(str)
             if(d){
 

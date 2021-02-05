@@ -3,32 +3,8 @@ import sys
 from http_server.log import BackupLog
 import http_server.utils
 
-from http_server.config import cfg
-cfg.init({
-    "listen" : {
-        "address" : "localhost",
-        "port" : 8084
-    },
-    "server" : {
-        "mode" : "spawn"
-    },
-    "database" : {
-        "filename" : "covid.sqlite"
-    },
-    "log" : {
-        "level" : "DEBUG",
-        "filename" : "covid.log"
-    },
-    "restoptions": {
+from server import cfg
 
-    }
-},
-[
-    "covid.cfg",
-    "~/.config/covid/covid.cfg",
-    "/usr/shar/covid/covid.cfg",
-    "/etc/covid/covid.cfg",
-])
 
 
 def print_help(err):

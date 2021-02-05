@@ -210,7 +210,6 @@ class DB(sqlite_connector.SQConnector):
             def run(self):
                 while True:
                     t = 1+(time.time()%(24*3600))/3600
-
                     while t>19.5 and t<=21: #entre 19h30 et 20h30
                         self.try_update()
                         t = 1 + (time.time() % (24 * 3600)) / 3600
@@ -247,14 +246,22 @@ class DB(sqlite_connector.SQConnector):
             """ % (deps[0], age, datemin, datemax ))))
         for dep in deps:
             tmp = self.exec("""
-                    select positif, population from incidence_dep where  dep='%s' and age=%d and 
+                    select positif, population, age, id from incidence_dep where  dep='%s' and age=%d and 
                     date>=%d and date<=%d order by date asc 
                 """% (dep, age, datemin, datemax ))
-            #tmp = list(map(lambda x: x[1], sql))
+
             out = []
             i = 0
             for row in tmp:
                 incidence = 0
+                #pour les brancs qui font des erreurs dans les fichiers....
+                if not row[1] and tmp[i-1][1]==row[0]:
+                    row=list(row)
+                    x=row[0]
+                    row[0]=row[1]
+                    row[1]=x
+                    tmp[i]=row
+
                 if i >= 7:
                     for x in range(7):
                         incidence += tmp[i - x][0]
@@ -262,7 +269,9 @@ class DB(sqlite_connector.SQConnector):
                     for x in range(i):
                         incidence += tmp[i - x][0]
                     incidence += row[0] * (7 - i)
+
                 incidence = (100000 * incidence) / row[1]
+
                 out.append(incidence)
                 i += 1
             ret["data"].append(out)
