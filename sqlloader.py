@@ -96,7 +96,7 @@ class SQLoader:
             log.i("Loading %s : %s" % (self.url, self.meta['name'] if (self.meta and 'name' in self.meta) else "Anonyme"))
             for line in self.file.split("\n"):
                 if i>0 and len(line):
-                    row=line.split(";")
+                    row=line.split(",")
                     self.data.append(row)
                     if self.insert(row):
                         self.inserted+=1
