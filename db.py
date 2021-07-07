@@ -133,7 +133,7 @@ class DB(sqlite_connector.SQConnector):
         return self.one("SELECT max(date) from metadata")
 
     def update(self):
-        toload = [sqlloader.IncidenceDepLoader]
+        toload = [sqlloader.IncidenceMetroLoader, sqlloader.IncidenceDepLoader]
         log.i("Début de mise à jour")
         inserted = 0
         for classe in toload:
